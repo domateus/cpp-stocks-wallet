@@ -4,7 +4,7 @@ using namespace std;
 
 class Wallet {
     private:
-        string hello = "Hello world";
+        string hello = "carteira";
     public:
         Wallet();
         string getString();

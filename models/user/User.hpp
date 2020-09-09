@@ -4,7 +4,7 @@ using namespace std;
 
 class User {
     private:
-        string hello = "Hello world";
+        string hello = "usuario";
     public:
         User();
         string getString();

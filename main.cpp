@@ -1,3 +1,4 @@
+#pragma once
 #include "definitions.hpp"
 #include <iostream>
 #include <vector>

@@ -1,3 +1,4 @@
+#pragma once
 #include "Wallet.hpp"
 #include <iostream>
 

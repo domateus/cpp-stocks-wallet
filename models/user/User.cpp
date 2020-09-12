@@ -1,3 +1,4 @@
+#pragma once
 #include "User.hpp"
 #include <iostream>
 

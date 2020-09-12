@@ -5,10 +5,10 @@
 using namespace std;
 
 User :: User() {
-    string test = this->getString();
+    string test = this->getLogin();
     cout << test << " ou ola mundo" << endl;
 }
 
-string User :: getString() {
-    return this->hello;
+string User :: getLogin() {
+    return this->login;
 }

@@ -19,7 +19,19 @@ int main() {
     cout << "Para criar uma conta, digite a\n\nPara fazer login, digite b" <<endl;
     cin >> session;
 
+    ValidateUser *UserSession = new ValidateUser();
+
     if (session == 'a') {
+        cout << "Escolha seu login" << endl;
+        cin.ignore();
+        getline(cin, login);
+        cout << "Escolha sua senha" << endl;
+        getline(cin, password);
+
+        logUser->setLogin(login);
+        logUser->setPassword(password);
+
+        UserSession->ValidateNewUser("user.csv", logUser);
 
     } else if (session == 'b') {
         cout << "Escreva seu login" << endl;
@@ -31,7 +43,8 @@ int main() {
         logUser->setLogin(login);
         logUser->setPassword(password);
 
-        ValidateUser *ValidSession = new ValidateUser("user.csv", logUser);
+        UserSession->ValidateExistingUser("user.csv", logUser);
+
     } else {
         throw invalid_argument("Opção inválida");
     }

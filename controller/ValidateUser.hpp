@@ -13,6 +13,6 @@ class ValidateUser {
         vector <User> allUsers;
 
     public: 
-        ValidateUser(string filename, User *loggingUser);
+        void ValidateExistingUser(string filename, User *loggingUser);
         void ValidateNewUser(string filename, User *loggingUser);
 };

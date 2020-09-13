@@ -14,4 +14,5 @@ class ValidateUser {
 
     public: 
         ValidateUser(string filename, User *loggingUser);
+        void ValidateNewUser(string filename, User *loggingUser);
 };

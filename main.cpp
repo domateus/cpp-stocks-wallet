@@ -50,6 +50,7 @@ int main() {
     }
 
 
+    CSVfile *userStocks = new CSVfile(logUser->getLogin());
 
     do {
         cout << "\033[1;4;32m\nBem vindo(a) ao gestor de carteira de ações\033[0m" << endl;
@@ -202,7 +203,7 @@ int main() {
             break;
 
         case 'd':
-
+            userStocks->writeStocks(vectorOfStocks);
             option = 'e';
             break;
         

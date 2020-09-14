@@ -50,6 +50,61 @@ vector<pair<string, vector<string>>> CSVfile :: read() {
     return this->fileData;
 }
 
-void CSVfile :: write(string file, User *newUser) {
+void CSVfile :: write(User *newUser) {
+    // this->fileData.at(0).second.push_back(newUser->getLogin());
+    // this->fileData.at(1).second.push_back(newUser->getPassword());
 
+    ofstream test(this->filename, ios_base::app);
+    test << newUser->getLogin() << "," << newUser->getPassword();
+
+    
+
+    // updatedAllUsers.close();
+
+    cout << "Usuário criado com sucesso" << endl;
+}
+
+void CSVfile :: writeStocks(vector<Stock> stockData) {
+    string name = "./data/" + this->filename + ".csv";
+    cout << name;
+    ofstream stocksFile(name);
+    for (int i = 0; i < stockData.size(); i++) {
+        stocksFile << "Ação " << i;
+        if (i != stockData.size() - 1) stocksFile << ",";
+    }
+
+    stocksFile << "\n";
+
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getTicker();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getReasonToBuy();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getBoughtPrice();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getSoldPrice();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getAmountBought();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getSoldAmount();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+
+    stocksFile.close();
 }

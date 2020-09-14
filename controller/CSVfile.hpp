@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <vector>
 #include "../models/user/User.hpp"
+#include "../models/stock/Stock.hpp"
 
 using namespace std;
 
@@ -18,5 +19,6 @@ class CSVfile {
     public:
         CSVfile(string file);
         vector<pair<string, vector<string>>> read();
-        void write(string file, User *newUser);
+        void write(User *newUser);
+        void writeStocks(vector<Stock> stockData);
 };

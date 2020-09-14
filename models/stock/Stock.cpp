@@ -10,6 +10,7 @@ Stock :: Stock() {
     this->boughtPrice = 0.0;
     this->soldPrice = 0.0;
     this->amountBought = 0;
+    this->soldAmount = 0;
 }
 
 string Stock :: getTicker() {
@@ -33,7 +34,7 @@ int Stock :: getAmountBought() {
 }
 
 int Stock :: getSoldAmount() {
-    return this->amountBought;
+    return this->soldAmount;
 }
 
 

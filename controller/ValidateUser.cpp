@@ -35,12 +35,11 @@ void ValidateUser :: ValidateExistingUser(string filename, User *loggingUser) {
 
     }
     if (!foundUser) {
-        cout << "to aqui" << endl;
         throw invalid_argument("Não foi possível validar seu usuário, tente novamente");
     }
 }
 
-void ValidateUser :: ValidateNewUser(User *loggingUser) {
+void ValidateUser :: ValidateNewUser(string filename, User *loggingUser) {
     CSVfile *fileLogs = new CSVfile(filename);
 
     vector<pair<string, vector<string>>> file = fileLogs->read();
@@ -53,27 +52,5 @@ void ValidateUser :: ValidateNewUser(User *loggingUser) {
             throw invalid_argument("Login inválido, por favor, escolha outro");
         }
     }
-    file.at(0).second.push_back(loggingUser->getLogin());
-    file.at(1).second.push_back(loggingUser->getPassword());
-
-    ofstream updatedAllUsers(filename);
-    cout << file.size();
-    for (int i = 0; i < file.size(); i++) {
-        updatedAllUsers << file.at(i).first;
-        if (i != file.size() - 1) updatedAllUsers << ",";
-    }
-
-    updatedAllUsers << "\n";
-
-    for (int i = 0; i < file.at(0).second.size(); i++) {
-        for (int j = 0; j < file.size(); j++) {
-            updatedAllUsers << file.at(j).second.at(i);
-            if (j != file.size() - 1) updatedAllUsers << ",";
-        }
-        updatedAllUsers << "\n";
-    }
-
-    updatedAllUsers.close();
-
-    cout << "Usuário criado com sucesso" << endl;
+    fileLogs->write(loggingUser);
 }

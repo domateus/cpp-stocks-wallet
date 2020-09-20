@@ -38,7 +38,6 @@ vector<pair<string, vector<string>>> CSVfile :: read() {
 
         while (getline(userFileLineStream, this->auxValues, ',')) {
             this->fileData.at(columnIndex).second.push_back(this->auxValues);
-            // cout << "\ncoluna: " << columnIndex << "\nvalues: " << values;
             if(userFileLineStream.peek() == ',') userFileLineStream.ignore();
 
             columnIndex++;
@@ -51,22 +50,106 @@ vector<pair<string, vector<string>>> CSVfile :: read() {
 }
 
 void CSVfile :: write(User *newUser) {
-    // this->fileData.at(0).second.push_back(newUser->getLogin());
-    // this->fileData.at(1).second.push_back(newUser->getPassword());
-
     ofstream test(this->filename, ios_base::app);
-    test << newUser->getLogin() << "," << newUser->getPassword();
-
-    
-
-    // updatedAllUsers.close();
+    test << "\n" << newUser->getLogin() << "," << newUser->getPassword();
 
     cout << "Usuário criado com sucesso" << endl;
 }
 
 void CSVfile :: writeStocks(vector<Stock> stockData) {
+    string name = "./data/" + this->filename + ".csv";    
+    ofstream stocksFile(name);
+    for (int i = 0; i < stockData.size(); i++) {
+        stocksFile << "Ação " << i;
+        if (i != stockData.size() - 1) stocksFile << ",";
+    }
+
+    stocksFile << "\n";
+
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getTicker();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getReasonToBuy();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getBoughtPrice();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getSoldPrice();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getAmountBought();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+        for (int j = 0; j < stockData.size(); j++) {
+            stocksFile << stockData[j].getSoldAmount();
+            if (j != stockData.size() - 1) stocksFile << ",";
+            else stocksFile << "\n";
+        }
+
+    stocksFile.close();
+}
+
+vector <Stock> CSVfile :: readExistingStocks() {
     string name = "./data/" + this->filename + ".csv";
-    cout << name;
+    ifstream userStockData(name);
+
+    if (!userStockData.is_open()) throw runtime_error("Registro de usuários não foi encontrado");
+
+    if (userStockData.good()) {
+        // read header line from csv file
+        getline(userStockData, this->auxLine);
+
+        // creates a stringstream from line
+        stringstream userFileLineStream(this->auxLine);
+
+        while (getline(userFileLineStream, this->auxColname, ',')) {
+            this->fileData.push_back({this->auxColname, vector<string> {}});
+        }
+    }
+
+    while(getline(userStockData, this->auxLine)) {
+        stringstream userFileLineStream(this->auxLine); 
+
+        int columnIndex = 0;
+
+        while (getline(userFileLineStream, this->auxValues, ',')) {
+            this->fileData.at(columnIndex).second.push_back(this->auxValues);
+            // cout << "\ncoluna: " << columnIndex << "\nvalues: " << values;
+            if(userFileLineStream.peek() == ',') userFileLineStream.ignore();
+
+            columnIndex++;
+        }
+    }
+
+    userStockData.close();
+
+    vector <Stock> formatedData (this->fileData.size());
+
+    for (int i = 0; i < this->fileData.size(); i++){
+        auto data = this->fileData[i].second;
+        formatedData[i].setTicker(data[0]);
+        formatedData[i].setReasonToBuy(data[1]);
+        formatedData[i].setBoughtPrice(stod(data[2]));
+        formatedData[i].setSoldPrice(stod(data[3]));
+        formatedData[i].setAmountBought(stoi(data[4]));
+        formatedData[i].setSoldAmount(stoi(data[5]));       
+    }
+    return formatedData;
+}
+
+void CSVfile :: updateStocks(vector<Stock> stockData) {
+    string name = "./data/" + this->filename + ".csv";    
     ofstream stocksFile(name);
     for (int i = 0; i < stockData.size(); i++) {
         stocksFile << "Ação " << i;

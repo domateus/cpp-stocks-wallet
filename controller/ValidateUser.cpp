@@ -20,7 +20,6 @@ void ValidateUser :: ValidateExistingUser(string filename, User *loggingUser) {
 
     for (auto it = file.at(0).second.begin(); it != file.at(0).second.end(); it++) {
         string login = it->data();
-        // cout << "\n\nit->data: " << login << endl;
         if (loggingUser->getLogin() == login) {
             int size = file.at(1).second.size();
             for (int index = 0; index < size; index++) {

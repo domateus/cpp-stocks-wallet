@@ -4,3 +4,4 @@
 #include "models/wallet/Wallet.hpp"
 #include "controller/ValidateUser.hpp"
 #include "controller/CSVfile.hpp"
+#include "view/menus.hpp"

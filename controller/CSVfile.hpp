@@ -21,4 +21,6 @@ class CSVfile {
         vector<pair<string, vector<string>>> read();
         void write(User *newUser);
         void writeStocks(vector<Stock> stockData);
+        void updateStocks(vector<Stock> stockData);
+        vector <Stock> readExistingStocks();
 };
